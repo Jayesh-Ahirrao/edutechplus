@@ -1,0 +1,12 @@
+[build]
+  publish = "dist"         # Directory to publish
+  command = "npm run build"  # Command to build the site
+
+[dev]
+  command = "vite"         # Command for local development
+  port = 3000              # Port for local development
+
+[[redirects]]
+  from = "/*"              # Redirect all routes
+  to = "/index.html"       # Redirect to index.html
+  status = 200              # Serve with status 200
