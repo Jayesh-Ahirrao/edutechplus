@@ -1,7 +1,12 @@
 import { useEffect, useState } from 'react';
 
+interface User {
+    name: string;
+    email: string;
+}
+
 const Dashboard = () => {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState<User | null>(null);
 
     useEffect(() => {
         const storedUser = localStorage.getItem('user');
@@ -11,7 +16,7 @@ const Dashboard = () => {
     }, []);
 
     if (!user) {
-        return <div>Loading...</div>; 
+        return <div>Loading...</div>;
     }
 
     return (

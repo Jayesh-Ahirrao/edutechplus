@@ -5,9 +5,13 @@ import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 
+interface User {
+  name: string;
+  email: string;
+}
 
 function App() {
-  const [user, setUser] = useState(getUserFromLocalStorage);
+  const [user] = useState<User | null>(getUserFromLocalStorage);
 
   // console.log(user);
 
@@ -40,7 +44,7 @@ function App() {
   )
 }
 
-const PrivateRoute = ({ children, user, navigateTo = "/" }) => {
+const PrivateRoute = ({ children , user, navigateTo = "/" }) => {
   console.log(user);
   return user ? children : <Navigate to={navigateTo} replace />;
 };
