@@ -44,7 +44,13 @@ function App() {
   )
 }
 
-const PrivateRoute = ({ children , user, navigateTo = "/" }) => {
+interface PrivateRouteProps {
+  children: React.ReactNode;
+  user: User | null | boolean;
+  navigateTo?: string;
+}
+
+const PrivateRoute: React.FC<PrivateRouteProps> = ({ children, user, navigateTo = "/" }) => {
   console.log(user);
   return user ? children : <Navigate to={navigateTo} replace />;
 };
