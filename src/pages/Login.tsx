@@ -15,6 +15,7 @@ const Login = () => {
 
     const handleError = () => {
         console.log('Login Failed');
+        navigate('/login');
     };
 
     return (

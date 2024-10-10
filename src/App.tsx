@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import './App.css';
 import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
+import MyCourses from './components/MyCourses';
 
 interface User {
   name: string;
@@ -11,9 +12,12 @@ interface User {
 }
 
 function App() {
-  const [user] = useState<User | null>(getUserFromLocalStorage);
+  const [user, setUser] = useState<User | null>(getUserFromLocalStorage);
 
-  // console.log(user);
+  useEffect(() => {
+    setUser(() => getUserFromLocalStorage());
+  }, []);
+
 
   return (
     <>
@@ -36,6 +40,17 @@ function App() {
               </PrivateRoute>
             }
           />
+
+          <Route
+            path="/mycourses"
+            element={
+              <PrivateRoute user={user} navigateTo='/login'>
+                <Dashboard >
+                  <MyCourses />
+                </Dashboard>
+              </PrivateRoute>
+            }
+          />
           <Route path="/" element={<LandingPage />} />
         </Routes>
       </Router>
@@ -51,7 +66,6 @@ interface PrivateRouteProps {
 }
 
 const PrivateRoute: React.FC<PrivateRouteProps> = ({ children, user, navigateTo = "/" }) => {
-  console.log(user);
   return user ? children : <Navigate to={navigateTo} replace />;
 };
 
