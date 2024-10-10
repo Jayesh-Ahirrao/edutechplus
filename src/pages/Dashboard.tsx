@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import axios from 'axios';
 import React, { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 import { BiUser } from 'react-icons/bi';
@@ -74,11 +73,11 @@ const Dashboard: React.FC<Props> = ({ children }) => {
             link: "#",
         },
         {
-            title: "Profile",
+            title: user?.name || "User",
             icon: <BiUser />,
             link: `#`,
         },
-    ], []);
+    ], [user?.name]);
 
     const handleLogout = useCallback(() => {
         localStorage.removeItem('user');
