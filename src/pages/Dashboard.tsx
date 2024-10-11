@@ -79,10 +79,11 @@ const Dashboard: React.FC<Props> = ({ children }) => {
         },
     ], [user?.name]);
 
-    const handleLogout = useCallback(() => {
-        localStorage.removeItem('user');
-        setUser(null);
+    const handleLogout = useCallback(async () => {
+        await localStorage.removeItem('user');
+        await setUser(null);
         navigate('/');
+        window.dispatchEvent(new Event('storage'));
     }, [navigate]);
 
     useEffect(() => {

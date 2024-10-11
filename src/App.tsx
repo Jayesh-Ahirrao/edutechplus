@@ -12,11 +12,20 @@ interface User {
 }
 
 function App() {
-  const [user, setUser] = useState<User | null>(getUserFromLocalStorage);
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    setUser(() => getUserFromLocalStorage());
+    const handleStorageChange = () => {
+      setUser(getUserFromLocalStorage());
+    };
+    window.addEventListener('storage', handleStorageChange);
+    setUser(getUserFromLocalStorage());
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
   }, []);
+
+
 
 
   return (

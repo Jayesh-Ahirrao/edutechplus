@@ -11,6 +11,7 @@ const Login = () => {
         const decoded = jwtDecode(response.credential);
         localStorage.setItem('user', JSON.stringify(decoded));
         navigate('/');
+        window.dispatchEvent(new Event('storage'));
     };
 
     const handleError = () => {

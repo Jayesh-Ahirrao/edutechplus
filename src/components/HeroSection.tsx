@@ -2,18 +2,17 @@ import { useEffect, useState } from "react";
 // import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 
-
 interface User {
   name: string;
   email: string;
 }
-
 
 const HeroSection: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
   const navigate = useNavigate();
 
   const handleNavigation = () => {
+    console.log("from if: ", user);
     if (user) {
       navigate('/dashboard');
     } else {
@@ -21,18 +20,16 @@ const HeroSection: React.FC = () => {
     }
   };
 
-
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
-      setUser(JSON.parse(storedUser));
+      setUser(() => JSON.parse(storedUser));
     } else {
-      setUser(null);
+      setUser(() => null);
     }
   }, []);
 
   console.log("state updated: ", user);
-
 
   return (
     <section id="home" className="h-screen bg-gray-100 flex flex-col justify-center items-center text-center">
