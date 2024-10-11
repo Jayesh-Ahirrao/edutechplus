@@ -1,50 +1,20 @@
-# React + TypeScript + Vite
+# Key Assumptions 🤔
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## API for Courses 📝
+Since the actual API for courses wasn't available, a different placeholder API was used. However, the goal of demonstrating CRUD functionality was still achieved with the placeholder data. 📚
 
-Currently, two official plugins are available:
+## Dummy Data for Analytics 📊
+For the analytics section, dummy data was utilized to mock the behavior of real data. This serves as a placeholder for future data integration.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+# Areas of Improvement (⏳ If More Time Was Available)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Use Redux Toolkit
+Incorporating the Redux Toolkit for state management would enhance scalability and allow for better handling of complex application state. 🛠️
 
-- Configure the top-level `parserOptions` property like this:
+## Optimize with Memoization
+By utilizing memoization (e.g., `React.memo`, `useMemo`, `useCallback`), we could improve performance by reducing unnecessary re-renders and recalculations. ⚡
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## Refactor Code into Custom Hooks
+To follow the DRY principle (Don't Repeat Yourself), much of the logic could be refactored into reusable custom hooks to clean up the code and make it more maintainable. 🔄
