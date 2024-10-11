@@ -9,20 +9,13 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import FactTile from '../components/FactTile';
+import { SidebarButtons, User } from '../constants/types';
+import showToast from '../utils/showToast';
 
 
 
-interface User {
-    name: string;
-    email: string;
-}
 
-interface SidebarButtons {
-    title: string;
-    icon: React.ReactNode;
-    link: string;
-    isUser?: boolean;
-}
+
 
 interface Props {
     children?: ReactNode;
@@ -46,12 +39,12 @@ const Dashboard: React.FC<Props> = ({ children }) => {
     useEffect(() => {
         const fetchCourses = async () => {
             try {
-                // const response = await axios.request(options);
                 const response = await axios.get('https://catfact.ninja/facts');
                 setCatFacts(response.data.data);
                 setLoading(false);
             } catch (error) {
                 console.error(error);
+                showToast('Failed to fetch cat facts. Please try again.', 'error');
                 setError('Failed to fetch courses');
                 setLoading(false);
             }
@@ -91,6 +84,7 @@ const Dashboard: React.FC<Props> = ({ children }) => {
         await setUser(null);
         navigate('/');
         window.dispatchEvent(new Event('storage'));
+        showToast("Logged out successfully", "success");
     }, [navigate]);
 
     useEffect(() => {

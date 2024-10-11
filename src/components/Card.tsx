@@ -1,15 +1,7 @@
 import React, { useState } from 'react';
 import { FaRegEdit } from 'react-icons/fa';
 import { MdDeleteOutline } from 'react-icons/md';
-
-interface CardProps {
-    id: number;
-    title: string;
-    thumbnailUrl: string;
-    url: string;
-    onUpdate: (id: number, newTitle: string) => void;
-    onDelete: (id: number) => void;
-}
+import { CardProps } from '../constants/types';
 
 const Card: React.FC<CardProps> = ({ id, title, thumbnailUrl, url, onUpdate, onDelete }) => {
     const [isEditing, setIsEditing] = useState(false);

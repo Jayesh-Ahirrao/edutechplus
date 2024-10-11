@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import showToast from '../utils/showToast';
 
 interface Courses {
     id: number;
@@ -33,12 +34,15 @@ const MyCourses: React.FC = () => {
 
     useEffect(() => {
         const fetchCourses = async () => {
+            const loadingToastId = showToast('Loading...', 'loading');
+
             try {
                 const response = await axios.request(options);
                 setCourses(response.data.item);
                 setLoading(false);
             } catch (error) {
                 console.error(error);
+                showToast('Failed to fetch courses. Please try again.', 'error', loadingToastId);
                 setError('Failed to fetch courses');
                 setLoading(false);
             }
@@ -46,7 +50,6 @@ const MyCourses: React.FC = () => {
 
         fetchCourses();
     }, []);
-
 
 
     if (loading) {
