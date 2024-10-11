@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
     return (
@@ -5,10 +6,10 @@ const Navbar = () => {
             <div className="max-h-fit logo text-xl text-center font-bold">EduTech+</div>
 
             <ul className="flex space-x-6 list-none">
-                <li><a href="#home" className="hover:text-blue-400 p-1">Home</a></li>
-                <li><a href="#about" className="hover:text-blue-400 p-1">About</a></li>
-                <li><a href="/mycourses" className="hover:text-blue-400 p-1">Courses</a></li>
-                <li><a href="#contact" className="hover:text-blue-400 p-1">Contact</a></li>
+                <li><Link to="#home" className="hover:text-blue-400 p-1">Home</Link></li>
+                <li><Link to="#about" className="hover:text-blue-400 p-1">About</Link></li>
+                <li><Link to="/mycourses" className="hover:text-blue-400 p-1">Courses</Link></li>
+                <li><Link to="#contact" className="hover:text-blue-400 p-1">Contact</Link></li>
             </ul>
         </nav>
     )

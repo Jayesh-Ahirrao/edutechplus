@@ -18,6 +18,7 @@ interface SidebarButtons {
     title: string;
     icon: React.ReactNode;
     link: string;
+    isUser?: boolean;
 }
 
 interface Props {
@@ -76,6 +77,7 @@ const Dashboard: React.FC<Props> = ({ children }) => {
             title: user?.name || "User",
             icon: <BiUser />,
             link: `#`,
+            isUser: true,
         },
     ], [user?.name]);
 
@@ -122,9 +124,9 @@ const Dashboard: React.FC<Props> = ({ children }) => {
                                 {/* Adjust max-height as needed */}
                                 <ul className="text-sm xl:text-xl font-normal flex flex-col">
                                     {sidebarMenuItems.map((item) => (
-                                        <Link to={item.link} key={item.title}>
+                                        <Link  to={item.link} key={item.title}>
                                             <li
-                                                className="flex justify-start items-center gap-4 hover:bg-gray-200 rounded-full cursor-pointer transition-all duration-200 ease-in px-4 py-2 md:py-3 pr-6 my-1 w-fit "
+                                                className={`flex justify-start items-center gap-4 hover:bg-gray-200 rounded-full cursor-pointer transition-all duration-200 ease-in px-4 py-2 md:py-3 pr-6 my-1 w-fit ${item.isUser ? "text-purple-600" : ""}`}
                                                 key={item.title}
                                             >
                                                 <span className="text-2xl lg:text-3xl ">{item.icon}</span>

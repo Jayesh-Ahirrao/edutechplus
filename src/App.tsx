@@ -54,7 +54,7 @@ function App() {
             path="/mycourses"
             element={
               <PrivateRoute user={user} navigateTo='/login'>
-                <Dashboard >
+                <Dashboard>
                   <MyCourses />
                 </Dashboard>
               </PrivateRoute>
