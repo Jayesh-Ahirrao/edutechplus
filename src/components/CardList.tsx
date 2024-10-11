@@ -1,4 +1,3 @@
-// src/components/PhotosList.tsx
 import React, { useEffect, useState } from 'react';
 import Card from './Card';
 
@@ -19,7 +18,7 @@ const CardList: React.FC = () => {
       try {
         const response = await fetch('https://jsonplaceholder.typicode.com/photos');
         const data = await response.json();
-        setPhotos(data.slice(0, 20)); // Fetch only the first 20 photos
+        setPhotos(data.slice(0, 20));
         setLoading(false);
       } catch (error) {
         console.error('Error fetching photos:', error);
@@ -29,7 +28,6 @@ const CardList: React.FC = () => {
     fetchPhotos();
   }, []);
 
-  // Function to handle the update of a card's title
   const handleUpdate = (id: number, newTitle: string) => {
     setPhotos((prevPhotos) =>
       prevPhotos.map((photo) =>
@@ -37,6 +35,10 @@ const CardList: React.FC = () => {
       )
     );
   };
+  const handleDelete = (id: number) => {
+    setPhotos((prevPhotos) => prevPhotos.filter(photo => photo.id !== id));
+  };
+
 
   if (loading) {
     return <div className="text-center text-gray-600">Loading photos...</div>;
@@ -54,6 +56,7 @@ const CardList: React.FC = () => {
             thumbnailUrl={photo.thumbnailUrl}
             url={photo.url}
             onUpdate={handleUpdate}
+            onDelete={handleDelete}
           />
         ))}
       </div>

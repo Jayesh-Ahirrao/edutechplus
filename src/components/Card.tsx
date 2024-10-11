@@ -1,5 +1,6 @@
-// src/components/Card.tsx
 import React, { useState } from 'react';
+import { FaRegEdit } from 'react-icons/fa';
+import { MdDeleteOutline } from 'react-icons/md';
 
 interface CardProps {
     id: number;
@@ -7,14 +8,15 @@ interface CardProps {
     thumbnailUrl: string;
     url: string;
     onUpdate: (id: number, newTitle: string) => void;
+    onDelete: (id: number) => void;
 }
 
-const Card: React.FC<CardProps> = ({ id, title, thumbnailUrl, url, onUpdate }) => {
+const Card: React.FC<CardProps> = ({ id, title, thumbnailUrl, url, onUpdate, onDelete }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [newTitle, setNewTitle] = useState(title);
 
     const handleSave = () => {
-        onUpdate(id, newTitle); // Pass the updated title back to the parent
+        onUpdate(id, newTitle); 
         setIsEditing(false);
     };
 
@@ -23,7 +25,7 @@ const Card: React.FC<CardProps> = ({ id, title, thumbnailUrl, url, onUpdate }) =
             <img
                 src={thumbnailUrl}
                 alt={title}
-                className="w-full h-48 sm:h-64 md:h-72 lg:h-80 object-cover"
+                className="w-full h-48 sm:h-64  object-cover"
             />
             <div className="p-4">
                 {isEditing ? (
@@ -31,7 +33,7 @@ const Card: React.FC<CardProps> = ({ id, title, thumbnailUrl, url, onUpdate }) =
                         type="text"
                         value={newTitle}
                         onChange={(e) => setNewTitle(e.target.value)}
-                        className="w-full border border-gray-300 p-2 rounded"
+                        className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                 ) : (
                     <h2 className="text-lg font-bold text-gray-800 truncate">{title}</h2>
@@ -44,23 +46,35 @@ const Card: React.FC<CardProps> = ({ id, title, thumbnailUrl, url, onUpdate }) =
                 >
                     View full image
                 </a>
-                {isEditing ? (
+
+                <div className="flex justify-between mt-4">
+                    <div className="flex space-x-2">
+                        {isEditing ? (
+                            <button
+                                onClick={handleSave}
+                                className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-700 transition duration-300"
+                            >
+                                Save
+                            </button>
+                        ) : (
+                            <button
+                                onClick={() => setIsEditing(true)}
+                                className="border-none text-white px-4 py-2 rounded hover:bg-yellow-700 transition duration-300 flex items-center"
+                            >
+                                <FaRegEdit className="mr-1" /> Edit
+                            </button>
+                        )}
+                    </div>
                     <button
-                        onClick={handleSave}
-                        className="mt-4 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-700"
+                        onClick={() => onDelete(id)}
+                        className="bg-red-500 border-none text-white px-4 py-2 rounded hover:bg-red-700 transition duration-300 flex items-center"
                     >
-                        Save
+                        <MdDeleteOutline className="mr-1" />
                     </button>
-                ) : (
-                    <button
-                        onClick={() => setIsEditing(true)}
-                        className="mt-4 bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-700"
-                    >
-                        Edit
-                    </button>
-                )}
+                </div>
             </div>
         </div>
+
     );
 };
 
