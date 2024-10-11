@@ -122,9 +122,13 @@ const Dashboard: React.FC<Props> = ({ children }) => {
 
                     <div className="min-h-[70vh] flex flex-col justify-between ">
                         <div className="menuitems">
-                            <h4  className="mb-2  text-sm  md:text-xl w-fit hover:bg-gray-200 rounded-full py-2 px-3 cursor-pointer transition-all duration-200 ease-in">
-                                <Link to="/" className='font-bold'> EduTech+</Link>
+                            <h4 className="mb-2 text-sm md:text-xl w-fit hover:bg-gray-200 rounded-full py-2 px-3 cursor-pointer transition-all duration-200 ease-in">
+                                <Link to="/" className='font-bold'>
+                                    <span className="block md:hidden">ET+</span>
+                                    <span className="hidden md:block">EduTech+</span>
+                                </Link>
                             </h4>
+
 
                             <div >
                                 <ul className="text-sm xl:text-xl font-normal flex flex-col">
@@ -177,7 +181,7 @@ const DashboardBody: React.FC<{ user: User | null; catFacts: CatFacts[] }> = ({ 
                     Welcome back, {user ? user.name : 'User'}
                 </h1>
                 <p className="text-lg text-start px-3 m-2 font-bold mt-8 mb-4">
-                    Here’s some fun cat facts to brighten your day: 
+                    Here’s some fun cat facts to brighten your day:
                 </p>
                 <div className="flex gap-2 flex-wrap text-start">
                     {catFacts.map((cat) => (
