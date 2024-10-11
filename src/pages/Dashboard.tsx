@@ -7,6 +7,9 @@ import { IoSettings } from 'react-icons/io5';
 import { TbLogout2 } from 'react-icons/tb';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import FactTile from '../components/FactTile';
+
 
 
 interface User {
@@ -34,6 +37,8 @@ const Dashboard: React.FC<Props> = ({ children }) => {
     const [catFacts, setCatFacts] = useState<CatFacts[] | null>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
+    const location = useLocation();
+
 
     const navigate = useNavigate();
 
@@ -76,7 +81,7 @@ const Dashboard: React.FC<Props> = ({ children }) => {
         {
             title: user?.name || "User",
             icon: <BiUser />,
-            link: `#`,
+            link: `/dashboard`,
             isUser: true,
         },
     ], [user?.name]);
@@ -96,7 +101,9 @@ const Dashboard: React.FC<Props> = ({ children }) => {
     }, []);
 
     if (loading) {
-        return <div>Loading...</div>;
+        return (<div>
+            Loading...
+        </div>);
     }
 
     if (error) {
@@ -115,18 +122,16 @@ const Dashboard: React.FC<Props> = ({ children }) => {
 
                     <div className="min-h-[70vh] flex flex-col justify-between ">
                         <div className="menuitems">
-                            <p className="mb-2  text-sm  md:text-xl w-fit hover:bg-gray-200 rounded-full py-2 px-3 cursor-pointer transition-all duration-200 ease-in">
-                                <Link to="/" > EduTech+</Link>
-                            </p>
+                            <h4  className="mb-2  text-sm  md:text-xl w-fit hover:bg-gray-200 rounded-full py-2 px-3 cursor-pointer transition-all duration-200 ease-in">
+                                <Link to="/" className='font-bold'> EduTech+</Link>
+                            </h4>
 
                             <div >
-                                {" "}
-                                {/* Adjust max-height as needed */}
                                 <ul className="text-sm xl:text-xl font-normal flex flex-col">
                                     {sidebarMenuItems.map((item) => (
-                                        <Link  to={item.link} key={item.title}>
+                                        <Link to={item.link} key={item.title}>
                                             <li
-                                                className={`flex justify-start items-center gap-4 hover:bg-gray-200 rounded-full cursor-pointer transition-all duration-200 ease-in px-4 py-2 md:py-3 pr-6 my-1 w-fit ${item.isUser ? "text-purple-600" : ""}`}
+                                                className={`flex justify-start items-center gap-4 hover:bg-gray-200 rounded-full cursor-pointer transition-all duration-200 ease-in px-4 py-2 md:py-3 pr-6 my-1 w-fit${location.pathname === item.link ? "bg-gray-200 text-purple-600" : ""}`}
                                                 key={item.title}
                                             >
                                                 <span className="text-2xl lg:text-3xl ">{item.icon}</span>
@@ -150,12 +155,35 @@ const Dashboard: React.FC<Props> = ({ children }) => {
 
                 <div className=" col-span-10 md:col-span-9 custom-colspan min-h-screen">
                     {
-                        children ? children : (
-                            catFacts?.map((cat) => <p key={cat.fact}>{cat.fact}</p>)
-                        )
+                        children ?
+                            children :
+                            (catFacts &&
+                                <DashboardBody user={user} catFacts={catFacts} />
+                            )
                     }
                 </div>
 
+            </div>
+        </div>
+    );
+};
+
+
+const DashboardBody: React.FC<{ user: User | null; catFacts: CatFacts[] }> = ({ user, catFacts }) => {
+    return (
+        <div className="min-h-screen bg-gray-100 flex flex-col items-center p-4 md:p-8">
+            <div className="w-full max-w-2xl bg-white shadow-md rounded-lg p-6">
+                <h1 className="text-2xl md:text-4xl font-bold mb-4 text-gray-800">
+                    Welcome back, {user ? user.name : 'User'}
+                </h1>
+                <p className="text-lg text-start px-3 m-2 font-bold mt-8 mb-4">
+                    Here’s some fun cat facts to brighten your day: 
+                </p>
+                <div className="flex gap-2 flex-wrap text-start">
+                    {catFacts.map((cat) => (
+                        <FactTile fact={cat.fact} key={cat.fact} />
+                    ))}
+                </div>
             </div>
         </div>
     );

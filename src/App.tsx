@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import './App.css';
+import CardList from './components/CardList';
+import AnalyticsCharts from './components/analyticsCharts';
+import Dashboard from './pages/Dashboard';
 import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
-import Dashboard from './pages/Dashboard';
-import MyCourses from './components/MyCourses';
 
 interface User {
   name: string;
@@ -24,9 +25,6 @@ function App() {
       window.removeEventListener('storage', handleStorageChange);
     };
   }, []);
-
-
-
 
   return (
     <>
@@ -55,7 +53,17 @@ function App() {
             element={
               <PrivateRoute user={user} navigateTo='/login'>
                 <Dashboard>
-                  <MyCourses />
+                  <CardList />
+                </Dashboard>
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/analytics"
+            element={
+              <PrivateRoute user={user} navigateTo='/login'>
+                <Dashboard>
+                  <AnalyticsCharts />
                 </Dashboard>
               </PrivateRoute>
             }
