@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import './App.css';
 import CardList from './components/CardList';
-import AnalyticsCharts from './components/analyticsCharts';
 import Dashboard from './pages/Dashboard';
 import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
+import AnalyticsCharts from './components/AnalyticsCharts';
 
 interface User {
   name: string;
