@@ -1,40 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Card from './Card';
-import { Photo } from '../constants/types';
-import showToast from '../utils/showToast';
-
-
+import { usePhotos } from '../hooks/usePhotos';
 
 const CardList: React.FC = () => {
-  const [photos, setPhotos] = useState<Photo[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-
-
-  useEffect(() => {
-    const fetchPhotos = async () => {
-      const loadingToastId = showToast('Loading photos...', 'loading');
-
-      try {
-        const response = await fetch('https://jsonplaceholder.typicode.com/photos');
-        if (!response.ok) {
-          showToast('Failed to fetch photos. Please try again.', 'error' , loadingToastId);
-          return;
-        }
-        const data = await response.json();
-        setPhotos(data.slice(0, 20));
-        showToast('Photos loaded successfully!', 'success', loadingToastId); 
-      } catch (error) {
-        showToast('Error fetching photos. Please check your connection.', 'error', loadingToastId);
-        console.error('Error fetching photos:', error);
-        setError("Error fetching photos");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPhotos();
-  }, []);
+  const { photos, loading, error, setPhotos } = usePhotos();
 
   const handleUpdate = (id: number, newTitle: string) => {
     setPhotos((prevPhotos) =>
@@ -43,10 +12,10 @@ const CardList: React.FC = () => {
       )
     );
   };
+
   const handleDelete = (id: number) => {
     setPhotos((prevPhotos) => prevPhotos.filter(photo => photo.id !== id));
   };
-
 
   if (error) {
     return <div className="text-center text-red-600">{error}</div>;

@@ -1,34 +1,19 @@
-import { useEffect, useState } from "react";
+// HeroSection.tsx
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-
-interface User {
-  name: string;
-  email: string;
-}
+import { useUser } from '../hooks/useUser';
 
 const HeroSection: React.FC = () => {
-  const [user, setUser] = useState<User | null>(null);
+  const { user } = useUser();
   const navigate = useNavigate();
 
   const handleNavigation = () => {
-    console.log("from if: ", user);
     if (user) {
       navigate('/dashboard');
     } else {
       navigate('/login');
     }
   };
-
-  useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      setUser(() => JSON.parse(storedUser));
-    } else {
-      setUser(() => null);
-    }
-  }, []);
-
-  console.log("state updated: ", user);
 
   return (
     <section id="home" className="h-screen bg-gray-100 flex flex-col justify-center items-center text-center">

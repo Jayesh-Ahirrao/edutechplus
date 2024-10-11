@@ -31,3 +31,8 @@ export interface SidebarButtons {
     link: string;
     isUser?: boolean;
 }
+
+
+export interface CatFacts {
+    fact: string;
+}
