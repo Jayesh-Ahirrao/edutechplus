@@ -128,8 +128,6 @@ const Dashboard: React.FC<Props> = ({ children }) => {
                                     <span className="hidden md:block">EduTech+</span>
                                 </Link>
                             </h4>
-
-
                             <div >
                                 <ul className="text-sm xl:text-xl font-normal flex flex-col">
                                     {sidebarMenuItems.map((item) => (
